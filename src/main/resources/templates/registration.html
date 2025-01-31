@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - DoctorsHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+<body>
+<header class="d-flex justify-content-between align-items-center p-3 bg-light border-bottom">
+    <a th:href="@{/}" class="h4 text-decoration-none text-dark">DoctorsHub</a>
+    <nav>
+        <a th:href="@{/contacts}" class="me-3 text-dark text-decoration-none">Contacts</a>
+        <a th:href="@{/about}" class="me-3 text-dark text-decoration-none">About</a>
+        <a th:href="@{/support}" class="me-3 text-dark text-decoration-none">Support</a>
+        <a th:href="@{/login}" class="text-dark text-decoration-none">Login</a>
+    </nav>
+</header>
+
+<div class="container d-flex justify-content-center align-items-center" style="height: 80vh;">
+    <div class="card p-4 shadow" style="width: 350px;">
+        <h2 class="text-center mb-3">Register</h2>
+        <form th:action="@{/registration}" method="post">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" name="email" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" id="password" name="password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Register</button>
+        </form>
+        <p class="text-center mt-3">
+            Already have an account? <a th:href="@{/login}" class="text-primary">Login</a>
+        </p>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

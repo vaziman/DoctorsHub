@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('/static/medical-doctors-desk.jpg'); /* Путь к изображению фона */
+            background-size: cover;
+            background-position: center;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: rgba(0, 0, 0, 0.6); /* Темный фон для контраста */
+        }
+        header a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            margin: 0 10px;
+        }
+        .icon {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .nav-buttons a {
+            font-size: 16px;
+            margin-left: 20px;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header section -->
+<header>
+    <a href="/" class="icon">DoctorsHub</a> <!-- Иконка сайта, при нажатии открывается главная страница -->
+    <div class="nav-buttons">
+        <a href="/contacts">Contacts</a>
+        <a href="/about">About</a>
+        <a href="/support">Support</a>
+        <a href="/login">Login</a>
+    </div>
+</header>
+
+<!-- Main content -->
+<div>
+    <h1 style="text-align: center; color: white; margin-top: 50px;">Добро пожаловать на главную страницу!</h1>
+</div>
+
+</body>
+</html>
