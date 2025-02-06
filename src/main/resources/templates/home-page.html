@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website</title>
+    <title>DoctorsHub - Home</title>
     <style>
         body {
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            background-image: url('/static/medical-doctors-desk.jpg'); /* Путь к изображению фона */
+            background-image: url('/static/medical-doctors-desk.jpg');
             background-size: cover;
             background-position: center;
         }
@@ -18,7 +19,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 10px 20px;
-            background-color: rgba(0, 0, 0, 0.6); /* Темный фон для контраста */
+            background-color: rgba(0, 0, 0, 0.6);
         }
         header a {
             color: white;
@@ -30,33 +31,100 @@
             font-size: 24px;
             font-weight: bold;
         }
-        .nav-buttons a {
-            font-size: 16px;
-            margin-left: 20px;
-        }
         .nav-buttons {
             display: flex;
-            justify-content: space-between;
+            align-items: center;
+        }
+        .extra-menu {
+            margin-right: 20px;
+        }
+        .profile-container {
+            position: relative;
+            display: inline-block;
+        }
+        .profile-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #ccc;
+            background-image: url('/static/images/profile-placeholder.png');
+            background-size: cover;
+            cursor: pointer;
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            min-width: 150px;
+            z-index: 1;
+            border-radius: 4px;
+        }
+        .dropdown-menu a, .dropdown-menu form button {
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+            background: none;
+            border: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+        }
+        .dropdown-menu a:hover, .dropdown-menu form button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .profile-container:hover .dropdown-menu {
+            display: block;
         }
     </style>
 </head>
 <body>
-
-<!-- Header section -->
 <header>
-    <a href="/" class="icon">DoctorsHub</a> <!-- Иконка сайта, при нажатии открывается главная страница -->
+    <a href="/" class="icon">DoctorsHub</a>
+
     <div class="nav-buttons">
+        <!-- Отображать кнопки для авторизованных пользователей с конкретными ролями -->
+        <div class="extra-menu" sec:authorize="hasRole('ROLE_USER')">
+            <a href="/user/appointments">My Appointments</a>
+        </div>
+        <div class="extra-menu" sec:authorize="hasRole('ROLE_DOCTOR')">
+            <a href="/doctor/slots">Manage Slots</a>
+            <a href="/doctor/bookings">My Bookings</a>
+        </div>
+        <!-- Общие кнопки -->
         <a href="/contacts">Contacts</a>
         <a href="/about">About</a>
         <a href="/support">Support</a>
-        <a href="/login">Login</a>
+    </div>
+
+    <div class="nav-buttons">
+        <!-- Если пользователь не аутентифицирован -->
+        <div sec:authorize="hasRole('ROLE_ANONYMOUS')">
+            <a href="/login">Login</a>
+        </div>
+        <!-- Если пользователь аутентифицирован (не anonymous) -->
+        <div sec:authorize="!hasRole('ROLE_ANONYMOUS')" class="profile-container">
+            <div class="profile-icon"></div>
+            <div class="dropdown-menu">
+                <a href="/profile">Profile</a>
+                <a href="/settings">Settings</a>
+                <a sec:authorize="hasRole('ROLE_ADMIN')" href="/admin/panel">Admin Panel</a>
+                <!-- Если использовать POST для logout, делаем форму -->
+                <form th:action="@{/logout}" method="post">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                    <button type="submit">Logout</button>
+                </form>
+            </div>
+        </div>
     </div>
 </header>
 
-<!-- Main content -->
 <div>
-    <h1 style="text-align: center; color: white; margin-top: 50px;">Добро пожаловать на главную страницу!</h1>
+    <h1 style="text-align: center; color: white; margin-top: 50px;">
+        Welcome to DoctorsHub!
+    </h1>
 </div>
-
 </body>
 </html>

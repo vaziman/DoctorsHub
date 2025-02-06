@@ -21,8 +21,7 @@ public class UserService {
         if (userRepository.findByEmail(user.getEmail()) != null) return false;
         user.setActive(true);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-//        user.getRoles().add(UserRole.USER);
-        user.setRole(UserRole.ROLE_USER.toString());
+        user.getRoles().add(UserRole.ROLE_ADMIN);
         userRepository.save(user);
         return true;
     }

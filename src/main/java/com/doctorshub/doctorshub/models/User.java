@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -30,12 +31,11 @@ public class User implements UserDetails {
     private String phoneNumber;
     @Column(name = "password")
     private String password;
-    @Column(name = "role")
-    private String role;
     @Column(name = "active")
     private boolean isActive;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private List<Appointments> appointments = new ArrayList<>();
 
 
@@ -52,7 +52,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return email;
     }
     @Override
     public String getPassword() {
@@ -76,7 +76,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return UserDetails.super.isEnabled();
+        return isActive;
     }
 
 

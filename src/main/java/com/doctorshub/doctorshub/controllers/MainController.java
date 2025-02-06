@@ -2,6 +2,7 @@ package com.doctorshub.doctorshub.controllers;
 
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
@@ -9,7 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MainController {
 
     @GetMapping("/")
-    public String index() {
+    public String index(Model model) {
+        model.addAttribute("title", "Doctors Hub");
         return "home-page";
     }
 }
