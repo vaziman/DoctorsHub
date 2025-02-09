@@ -1,17 +1,16 @@
 package com.doctorshub.doctorshub.models;
 
 
-
-import com.doctorshub.doctorshub.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 @Table
 @Entity(name = "users")
@@ -39,17 +38,25 @@ public class User implements UserDetails {
     private List<Appointments> appointments = new ArrayList<>();
 
 
-    @ElementCollection(targetClass = UserRole.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "role")
-    @Enumerated(EnumType.STRING)
-    private Set<UserRole> roles = new HashSet<>();
+//    @ElementCollection(targetClass = UserRole.class, fetch = FetchType.EAGER)
+//    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+//    @Column(name = "role")
+//    @Enumerated(EnumType.STRING)
+//    private Set<UserRole> roles = new HashSet<>();
+
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        return roles;
+//    }
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id")
+    private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles;
+        return Collections.singletonList(role);
     }
-
     @Override
     public String getUsername() {
         return email;

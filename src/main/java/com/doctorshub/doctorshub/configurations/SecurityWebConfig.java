@@ -27,7 +27,7 @@ public class SecurityWebConfig  {
         http
                 .csrf(csrf -> csrf
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                        .ignoringRequestMatchers("/registration", "/swagger-ui/**", "/v3/api-docs/**"))
+                        .ignoringRequestMatchers("/registration", "/swagger-ui/**", "/v3/api-docs/**", "/admin/**"))
 
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
